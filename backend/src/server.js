@@ -1,12 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT || 3000;
 const noteRoutes = require("./routes/notesRoute");
 const { connectDB } = require("./database/database");
 const rateLimiter = require("../midlleware/rateLimiter");
 
 connectDB();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
